@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from pathlib import Path
+home = str(Path.home())
 email_address_from = input("Email address from: ")
 email_address_to = input("Email address to: ")
 email_password = input("Gmail App password: ")
@@ -11,7 +13,7 @@ parameters = {
 import pickle
 import stat
 import os
-file_name = '~/checkAlmond.pickled'
+file_name = home + '/checkAlmond.pickled'
 
 with open(file_name, 'wb') as out_file:
   pickle.dump(parameters, out_file)
