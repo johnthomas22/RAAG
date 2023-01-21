@@ -4,22 +4,24 @@ import pickle
 import os
 import requests
 from datetime import datetime
+from pathlib import Path
 
 URL = "https://www2.sepa.org.uk/hydrodata/api/Level15/14869"
 LIMIT = 1.75
 
 
 def main():
+    home = str(Path.home())
     # open and read the last reading
     try:
-        with open("~/lastAlmondReading.txt", "r") as f:
+        with open(home + "/lastAlmondReading.txt", "r") as f:
             last_reading = float(f.read())
     except Exception:
         last_reading = 0.0
 
     print("Last Result = ", last_reading)
 
-    file_name = "~/checkAlmond.pickled"
+    file_name = home + "/checkAlmond.pickled"
     with open(file_name, "rb") as pickle_f:
         parameters = pickle.load(pickle_f)
 
@@ -39,7 +41,7 @@ def main():
 
     if float(last["Value"]) >= LIMIT and float(last["Value"]) > last_reading:
         print("Increase detected...")
-        with open("~/lastAlmondReading.txt", "w") as f:
+        with open(home + "/lastAlmondReading.txt", "w") as f:
             f.write(last["Value"])
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as connection:
             connection.login(email_address_from, email_password)
@@ -56,7 +58,7 @@ Check https://www2.sepa.org.uk/waterlevels/?sd=t&lc=14869 for details.""",
 
     if float(last["Value"]) < LIMIT and last_reading >0.0:
         try:
-            os.remove("~/lastAlmondReading.txt")
+            os.remove(home + "/lastAlmondReading.txt")
             print("Deleted last reading file")
         except Exception:
             print("lastAlmondReading.txt not found")
