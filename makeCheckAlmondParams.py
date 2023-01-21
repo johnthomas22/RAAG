@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
+email_address_from = input("Email address from: ")
+email_address_to = input("Email address to: ")
+email_password = input("Gmail App password: ")
 parameters = {
-    'email_address_from': 'jt2354@gmail.com',
-    'email_address_to': ['riveralmondactiongroup@gmail.com','jt2354@gmail.com'],
-    'email_password': '<generated Google Gmail App password>'
+    'email_address_from': email_address_from,
+    'email_address_to': [email_address_from,email_address_to],
+    'email_password': email_password
   }
 
 import pickle
