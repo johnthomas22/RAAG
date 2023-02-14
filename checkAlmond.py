@@ -29,8 +29,8 @@ def main():
     email_address_to = parameters["email_address_to"]
     email_password = parameters["email_password"]
 
-    print(f"{email_address_from=}")
-    print(f"{email_address_to=}")
+    print(f"Address from={email_address_from}")
+    print(f"Address to={email_address_to}")
 
     data = requests.get(URL).json()
     last = data[-1]
